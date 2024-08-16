@@ -1,12 +1,12 @@
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import SettingsScreen from "../screens/SettingsScreen";
 
 const SettingsStack = createStackNavigator();
 
 export default function SettingStackScreen() {
     return (
-        <Settings.Navigator>
-            
-        </Settings.Navigator>
+        <SettingsStack.Navigator>
+            <SettingsStack.Screen name = "Settings" component = {SettingsScreen}/>
+        </SettingsStack.Navigator>
     )
 }
