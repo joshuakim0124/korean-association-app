@@ -1,17 +1,20 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-
+import { NavigationContext } from '@react-navigation/native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 export default function BusinessContainer({ businessData }) {
+    const navigation = useContext(NavigationContext);
 
     return (
-        <View style = {styles.container}> 
-            <Text style = {styles.infoText}>{businessData?.name || 'Business Name'}</Text>
-            <Image  
-            />
-            <Text style = {styles.infoText}>{businessData?.description || 'Business Description'}</Text>
-            <Text style = {styles.infoText}>{businessData?.contact || 'Business Contact'}</Text>
-            <Text style = {styles.infoText}>{businessData?.address || 'Business Address'}</Text>
-        </View>
+        <TouchableOpacity onPress = {() => navigation.navigate('InformationScreen', { businessData })}>
+            <View style = {styles.container}> 
+                <Text style = {styles.infoText}>{businessData?.name || 'Business Name'}</Text>
+                <Image  
+                />
+                <Text style = {styles.infoText}>{businessData?.description || 'Business Description'}</Text>
+                <Text style = {styles.infoText}>{businessData?.contact || 'Business Contact'}</Text>
+                <Text style = {styles.infoText}>{businessData?.address || 'Business Address'}</Text>
+            </View>
+        </TouchableOpacity>
     )
 }
 

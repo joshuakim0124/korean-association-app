@@ -1,8 +1,8 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import BusinessContainer from './BusinessContainer';
-export default function HorizontalScroll({ businessData }) {
 
+export default function HorizontalScroll({ businessData }) {
     return (
         <FlatList
             horizontal
