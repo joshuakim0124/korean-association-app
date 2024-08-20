@@ -1,6 +1,7 @@
 import { NavigationContext } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+
 export default function BusinessContainer({ businessData }) {
     const navigation = useContext(NavigationContext);
 
