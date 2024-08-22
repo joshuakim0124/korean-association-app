@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA62XENuYX7mHYDRcW2lxZo0AteknHun3Q",
-  authDomain: "korean-association-app.firebaseapp.com",
-  projectId: "korean-association-app",
-  storageBucket: "korean-association-app.appspot.com",
-  messagingSenderId: "243834615776",
-  appId: "1:243834615776:web:7bb59218ceaeef36949d85",
-  measurementId: "G-SW4RY07Y2T"
+  apiKey: process.env.REACT_APP_APIKEY || "AIzaSyB2aUfKw9H5Y5n7w5Lw8b5PZdLJyqBfLdE",
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID,
+  measurementId: process.env.REACT_APP_MEASUREMENTID,
 };
 
 export const FIREBASE_APP = initializeApp(firebaseConfig);

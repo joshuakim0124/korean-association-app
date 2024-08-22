@@ -14,7 +14,7 @@ export default function SettingStackScreen() {
         <SignPageContext.Provider value = {signPageData}>
             <SettingsStack.Navigator>
                 <SettingsStack.Screen name = "SettingsScreen" component = {SettingsScreen} options={{title: 'Settings'}}/>
-                <SettingsStack.Screen name = "SignIn" component = {LoginScreen} options={{title: 'Login'}}/>
+                <SettingsStack.Screen name = "SignPage" component = {LoginScreen} options={{title: signPage}}/>
             </SettingsStack.Navigator>
         </SignPageContext.Provider>
     )

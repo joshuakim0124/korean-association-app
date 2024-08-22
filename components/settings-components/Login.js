@@ -1,32 +1,68 @@
-import React, { useContext } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native';
 import { SignPageContext } from '../contexts/SignPageContext';
 import { useTheme } from '@react-navigation/native';
+import { doSignInWithEmailAndPassword } from '../auth';
 
 
-export default function Login() {
+export default function Login({ handleCreateToast, navigation }) {
     const { setSignPage } = useContext(SignPageContext);
     const { colors } = useTheme();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handleLogin = async () => {
+        try {
+            setLoading(true);
+            if (email == '') {
+                handleCreateToast('error', 'Please enter an email', 'bottom');
+                setLoading(false);
+                return;
+            }
+            if (password == '') {
+                handleCreateToast('error', 'Please enter a password', 'bottom');
+                setLoading(false);
+                return;
+            }
+            await doSignInWithEmailAndPassword(email, password);
+            setLoading(false);
+            setEmail('');
+            setPassword('');
+            handleCreateToast('success', 'Logged In', 'bottom');
+            navigation.goBack();
+        } catch (error) {
+            console.log(error);
+            handleCreateToast('error', 'Invalid email or password', 'bottom');
+            setLoading(false);
+        }
+    }
 
     return (
-        <View style = {styles.container}>
-            <TextInput 
-                placeholder = 'Email'
-                placeholderTextColor = {colors.text}
-                style = {[styles.inputBox, {borderColor: colors.text, color: colors.text}]}
-            />
-            <TextInput 
-                placeholder = 'Password'
-                placeholderTextColor = {colors.text}
-                style = {[styles.inputBox, {borderColor: colors.text, color: colors.text}]}
-            />
-            <TouchableOpacity style = {styles.loginButton}>
-                <Text style = {{fontSize: 18}}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.createButton} onPress = {() => setSignPage('SignUp')}>
-                <Text style = {{color: '#29C5F6', fontSize: 18}}>Create Account</Text>
-            </TouchableOpacity>
-        </View>
+        <TouchableWithoutFeedback onPress = {() => Keyboard.dismiss()}>
+            <View style = {styles.container}>
+                <TextInput 
+                    placeholder = 'Email'
+                    placeholderTextColor = {colors.text}
+                    style = {[styles.inputBox, {borderColor: colors.text, color: colors.text}]}
+                    onChangeText = {(text) => setEmail(text)}
+                />
+                <TextInput 
+                    placeholder = 'Password'
+                    placeholderTextColor = {colors.text}
+                    secureTextEntry = {true}
+                    style = {[styles.inputBox, {borderColor: colors.text, color: colors.text}]}
+                    onChangeText = {(text) => setPassword(text)}
+                />
+                <TouchableOpacity style = {styles.loginButton} onPress = {handleLogin}> 
+                    <Text style = {{fontSize: 18}}>Login</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.createButton} onPress = {() => setSignPage('Sign Up')}>
+                    <Text style = {{color: '#29C5F6', fontSize: 18}}>Create Account</Text>
+                </TouchableOpacity>
+                {loading && <ActivityIndicator size = 'small' color = {colors.text} />}
+            </View>
+        </TouchableWithoutFeedback>
     );
 };
 
@@ -34,8 +70,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 300
+        justifyContent: 'center'
     },
     inputBox: {
         height: 60,

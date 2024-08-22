@@ -5,17 +5,29 @@ import { Switch } from 'react-native-gesture-handler';
 import { ThemeContext } from '../contexts/ThemeContext';
 import LanguageButton from '../settings-components/LanguageButton';
 import { UserContext } from '../contexts/UserContext';
+import { doSignOut } from '../auth';
+import Toast from 'react-native-toast-message';
 
 export default function SettingsScreen({ navigation }) {
     const {theme, setTheme} = useContext(ThemeContext);
     const { colors } = useTheme();
     const [language, setLanguage] = useState('english');
     const { user } = useContext(UserContext);
-
     const changeLanguage = (newLang) => {
         setLanguage(newLang);
     }
- 
+
+    const handleSignOut = () => {
+        if (user) {
+            doSignOut();
+        }
+        Toast.show({
+            type: 'success',
+            text1: 'Signed Out',
+            position: 'bottom',
+            visibilityTime: 3000
+        });
+    }
     return (
         <View style = {styles.container}>
             <View style = {styles.viewBlock}>
@@ -41,9 +53,10 @@ export default function SettingsScreen({ navigation }) {
                     />
                 </View>
             </View>
-            {user ? <Button title = "Log Out" onPress = {() => setUser(null)}/> : 
-                    <Button title = "Sign In" onPress = {() => navigation.navigate('SignIn')}/>
+            {user ? <Button title = "Log Out" onPress = {() => handleSignOut()}/> : 
+                    <Button title = "Sign In" onPress = {() => navigation.navigate('SignPage')}/>
             }
+            <Toast />
         </View>
     );
 }
