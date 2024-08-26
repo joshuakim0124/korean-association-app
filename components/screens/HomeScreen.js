@@ -15,32 +15,33 @@ export default function HomeScreen({ navigation }) {
     return (
         <NavigationContext.Provider value = {navigation}>
             <View>
-                <Text>Eateries</Text>
+                
                <View>
+                     <Text>Eateries</Text>
                      <HorizontalScroll businessData = {Eateries}/>
                </View>
-               <Text>Clinics</Text>
                 <View>
+                    <Text>Clinics</Text>
                     <HorizontalScroll businessData = {Clinics}/>
                 </View>
-                <Text>Markets</Text>
                 <View>
+                    <Text>Markets</Text>
                     <HorizontalScroll businessData = {Markets}/>
                 </View>
-                <Text>Real Estate/Finance</Text>
                 <View>
+                    <Text>Real Estate/Finance</Text>
                     <HorizontalScroll businessData = {RealEstateFinance}/>
                 </View>
-                <Text>Religious Institutions</Text>
                 <View>
+                    <Text>Religious Institutions</Text>
                     <HorizontalScroll businessData = {ReligiousInstitutions}/>
                 </View>
-                <Text>Salons</Text>
                 <View>
+                    <Text>Salons</Text>
                     <HorizontalScroll businessData = {Salons}/>
                 </View>
-                <Text>Services</Text>
                 <View>
+                    <Text>Services</Text>
                     <HorizontalScroll businessData = {Services}/>
                 </View>
             </View>
